@@ -6,11 +6,12 @@ with open("README.md", "r", encoding="utf-8") as f:
 setup(
     name="jasper_embed",
     version="0.2.0",
-    description="Embed JasperReports Server reports inside ERPNext/Frappe with per-Doctype mappings.",
+    description="Embed JasperReports Server outputs inside ERPNext/Frappe",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author="Your Company",
-    packages=find_packages(),
+    author="Neotec",
+    packages=find_packages(include=["jasper_embed", "jasper_embed.*"]),
     include_package_data=True,
     install_requires=[],
+    license="MIT",
 )
