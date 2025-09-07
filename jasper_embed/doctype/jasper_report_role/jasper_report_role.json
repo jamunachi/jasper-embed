@@ -1,0 +1,17 @@
+{
+  "name": "Jasper Report Role",
+  "doctype": "DocType",
+  "custom": 0,
+  "istable": 1,
+  "editable_grid": 1,
+  "module": "Jasper Embed",
+  "fields": [
+    {
+      "fieldname": "role",
+      "fieldtype": "Link",
+      "label": "Role",
+      "options": "Role",
+      "reqd": 1
+    }
+  ]
+}

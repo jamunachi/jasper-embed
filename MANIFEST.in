@@ -1,0 +1,3 @@
+recursive-include jasper_embed *.json *.js *.py *.txt *.md *.png *.svg
+include LICENSE
+include README.md

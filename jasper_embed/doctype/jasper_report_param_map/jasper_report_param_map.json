@@ -1,0 +1,31 @@
+{
+  "name": "Jasper Report Param Map",
+  "doctype": "DocType",
+  "custom": 0,
+  "istable": 1,
+  "editable_grid": 1,
+  "module": "Jasper Embed",
+  "fields": [
+    {
+      "fieldname": "param_name",
+      "fieldtype": "Data",
+      "label": "Parameter Name",
+      "reqd": 1
+    },
+    {
+      "fieldname": "is_doctype_id",
+      "fieldtype": "Check",
+      "label": "Is Doctype ID"
+    },
+    {
+      "fieldname": "is_where_clause",
+      "fieldtype": "Check",
+      "label": "Is WHERE Clause (List)"
+    },
+    {
+      "fieldname": "default_value",
+      "fieldtype": "Data",
+      "label": "Default Value"
+    }
+  ]
+}

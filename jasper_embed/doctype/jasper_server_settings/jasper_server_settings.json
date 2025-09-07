@@ -1,0 +1,44 @@
+{
+  "name": "Jasper Server Settings",
+  "doctype": "DocType",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 0,
+  "is_submittable": 0,
+  "track_changes": 1,
+  "module": "Jasper Embed",
+  "autoname": "field:server_url",
+  "fields": [
+    {
+      "fieldname": "server_url",
+      "fieldtype": "Data",
+      "label": "Server URL",
+      "reqd": 1
+    },
+    {
+      "fieldname": "username",
+      "fieldtype": "Data",
+      "label": "Username",
+      "reqd": 1
+    },
+    {
+      "fieldname": "password",
+      "fieldtype": "Password",
+      "label": "Password",
+      "reqd": 1
+    },
+    {
+      "fieldname": "verify_ssl",
+      "fieldtype": "Check",
+      "label": "Verify SSL"
+    },
+    {
+      "fieldname": "timeout",
+      "fieldtype": "Int",
+      "label": "Timeout (seconds)",
+      "default": 120
+    }
+  ],
+  "issingle": 1,
+  "allow_rename": 0
+}

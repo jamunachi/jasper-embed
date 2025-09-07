@@ -1,0 +1,117 @@
+{
+  "name": "Jasper Report",
+  "doctype": "DocType",
+  "custom": 0,
+  "istable": 0,
+  "editable_grid": 0,
+  "module": "Jasper Embed",
+  "fields": [
+    {
+      "fieldname": "report_label",
+      "fieldtype": "Data",
+      "label": "Report Label",
+      "reqd": 1
+    },
+    {
+      "fieldname": "reference_doctype",
+      "fieldtype": "Link",
+      "label": "Reference Doctype",
+      "options": "DocType",
+      "reqd": 1
+    },
+    {
+      "fieldname": "report_for",
+      "fieldtype": "Select",
+      "label": "Report For",
+      "options": "Form\nList\nServer Hooks",
+      "default": "Form"
+    },
+    {
+      "fieldname": "report_uri",
+      "fieldtype": "Data",
+      "label": "Report URI (on Jasper Server)",
+      "reqd": 1,
+      "description": "/path/to/report e.g. /erpnext/SalesInvoice"
+    },
+    {
+      "fieldname": "default_format",
+      "fieldtype": "Select",
+      "label": "Default Format",
+      "options": "pdf\nxlsx",
+      "default": "pdf"
+    },
+    {
+      "fieldname": "enabled",
+      "fieldtype": "Check",
+      "label": "Enabled",
+      "default": 1
+    },
+    {
+      "fieldname": "section_params",
+      "fieldtype": "Section Break",
+      "label": "Parameter Mappings"
+    },
+    {
+      "fieldname": "params",
+      "fieldtype": "Table",
+      "label": "Params",
+      "options": "Jasper Report Param Map"
+    },
+    {
+      "fieldname": "section_visibility",
+      "fieldtype": "Section Break",
+      "label": "Visibility"
+    },
+    {
+      "fieldname": "roles",
+      "fieldtype": "Table",
+      "label": "Allowed Roles",
+      "options": "Jasper Report Role",
+      "description": "Leave empty to allow all roles."
+    },
+    {
+      "fieldname": "section_email",
+      "fieldtype": "Section Break",
+      "label": "Email Options"
+    },
+    {
+      "fieldname": "email_after_generation",
+      "fieldtype": "Check",
+      "label": "Auto Email After Generation"
+    },
+    {
+      "fieldname": "email_to",
+      "fieldtype": "Data",
+      "label": "Email To (comma-separated)",
+      "depends_on": "eval:doc.email_after_generation"
+    },
+    {
+      "fieldname": "email_subject",
+      "fieldtype": "Data",
+      "label": "Email Subject",
+      "depends_on": "eval:doc.email_after_generation"
+    },
+    {
+      "fieldname": "email_body",
+      "fieldtype": "Small Text",
+      "label": "Email Body",
+      "depends_on": "eval:doc.email_after_generation"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "System Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    },
+    {
+      "role": "Administrator",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1
+    }
+  ]
+}
