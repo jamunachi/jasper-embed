@@ -1,11 +1,10 @@
-import json
+﻿import json
 import requests
 import frappe
-from frappe.model.document import Document
 
 def _user_has_access(report_doc) -> bool:
     """Return True if current user has any of the roles listed on the report (or if none listed)."""
-    roles = [r.role for r in getattr(report_doc, 'roles', [])] or []
+    roles = [r.role for r in getattr(report_doc, "roles", [])] or []
     if not roles:
         return True
     user_roles = set(frappe.get_roles(frappe.session.user))
@@ -36,11 +35,6 @@ def get_reports_for_doctype(doctype: str) -> list:
 def run(report_name: str, params=None, fmt: str = "pdf"):
     """Execute a mapped report by name; stream result into a private File.
     Applies role visibility and optionally emails the output if configured.
-    Args:
-        report_name: name of Jasper Report doctype record
-        params: dict {param: value}
-        fmt: 'pdf' or 'xlsx'
-    Returns: {file_url: str}
     """
     doc = frappe.get_doc("Jasper Report", report_name)
     if not doc.enabled:
@@ -64,9 +58,9 @@ def run(report_name: str, params=None, fmt: str = "pdf"):
         else:
             p = params
 
+    # Call JasperReports Server REST v2
     url = f"{base_url}/rest_v2/reports{doc.report_uri}.{fmt}"
     verify = bool(settings.verify_ssl)
-
     r = requests.get(url, params=p, auth=(username, password), timeout=int(settings.timeout or 120), verify=verify)
     try:
         r.raise_for_status()
@@ -74,9 +68,10 @@ def run(report_name: str, params=None, fmt: str = "pdf"):
         text = r.text[:1000] if r.text else str(r.status_code)
         frappe.throw(f"Jasper error {r.status_code}: {text}")
 
+    # Save file in ERPNext
     ext = fmt.lower()
     base_fname = doc.report_label or doc.name
-    if 'docname' in p:
+    if "docname" in p:
         base_fname += f"-{p['docname']}"
     fname = f"{base_fname}.{ext}"
 
@@ -87,12 +82,11 @@ def run(report_name: str, params=None, fmt: str = "pdf"):
         "content": r.content
     }).insert(ignore_permissions=True)
 
-    # Optional: send email
-    if getattr(doc, 'email_after_generation', 0):
+    # Optional auto-email
+    if getattr(doc, "email_after_generation", 0):
         recipients = []
-        if getattr(doc, 'email_to', None):
-            # split on comma and strip
-            recipients = [x.strip() for x in doc.email_to.split(',') if x.strip()]
+        if getattr(doc, "email_to", None):
+            recipients = [x.strip() for x in doc.email_to.split(",") if x.strip()]
         if recipients:
             subject = doc.email_subject or (doc.report_label or report_name)
             message = doc.email_body or "Auto-generated report from Jasper Embed."
@@ -103,7 +97,7 @@ def run(report_name: str, params=None, fmt: str = "pdf"):
                     message=message,
                     attachments=[{"fname": fname, "fcontent": r.content}]
                 )
-            except Exception as e:
+            except Exception:
                 frappe.log_error(frappe.get_traceback(), "Jasper Embed: Email send failed")
 
     return {"file_url": filedoc.file_url}
